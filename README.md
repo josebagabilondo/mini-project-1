@@ -84,5 +84,14 @@ $ sudo docker compose up
 
 &nbsp;&nbsp;&nbsp;&nbsp;In it there is data given by different sensors at real time, for temperature pressure and light, and also the messages recived until now and how many node we've activated in the process of creating the mini project 1.
 
+## Server configuration
+&nbsp;&nbsp;&nbsp;&nbsp;For the server setup, we decided to use AWS services, as it was one of the few options that supported the ipv6 communication needed for the project, while keeping it for free, for that we hosted a Debian 12 machine. To assign an ipv6 to the machine, we followed this [guide](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-instance-addressing.html#working-with-ipv6-addresses). Once our machine has an assigned ipv6 address, we have to change our firewall configurations in order to allow the coap traffic. We did so with the next command:
+```bash
+$ sudo iptables -A INPUT -p udp --dport 5683 -j ACCEPT
+```
+&nbsp;&nbsp;&nbsp;&nbsp; Here we allow the incoming traffic on the port 5683, which is used for the coap requests.
+
+&nbsp;&nbsp;&nbsp;&nbsp; Of course, all this configuration was done before deploying our code.
+
 ## Video:
 &nbsp;&nbsp;&nbsp;&nbsp;[https://youtu.be/HeRUO_gKO2A](https://youtu.be/8kjjtQoug-o)https://youtu.be/8kjjtQoug-o
